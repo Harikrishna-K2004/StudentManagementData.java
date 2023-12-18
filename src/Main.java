@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 //class to store student management data
 class StudentDetails {
@@ -48,22 +47,26 @@ class StudentManagementData {
         System.out.println(" is added successfully.");
     }
     public void removeStudent(String rollNumber) {
-        if (!students.isEmpty()) {
-            for (StudentDetails student : students) {
-                String check = student.getRollNumber();
-                if (rollNumber.equals(check)) {
-                    students.remove(student);
-                    System.out.println("Student with roll number  " + rollNumber + " [ " + student.getName() + " ] " + " removed successfully.");
-                }
-                else{
-                    System.out.println("Student with Roll Number " + rollNumber + " not found.");
-                }
+        Iterator<StudentDetails> iterator = students.iterator();
+        boolean studentFound = false;
+
+        while (iterator.hasNext()) {
+            StudentDetails student = iterator.next();
+            String check = student.getRollNumber();
+
+            if (rollNumber.equals(check)) {
+                iterator.remove();
+                System.out.println("Student with roll number " + rollNumber + " [ " + student.getName() + " ] " + " removed successfully.");
+                studentFound = true;
+                break;
             }
         }
-        else{
+
+        if (!studentFound) {
             System.out.println("Student with Roll Number " + rollNumber + " not found.");
         }
     }
+
 
     public void find_a_Student(String rollNumber) {
         if (!students.isEmpty()) {
